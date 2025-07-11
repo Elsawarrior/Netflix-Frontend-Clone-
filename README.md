@@ -1,6 +1,5 @@
-# 🍿 Netflix Frontend Clone
-
-A responsive Netflix-inspired landing page, built with HTML, CSS, and Bootstrap 5. Browse movies, view trailers, and explore a simulated login experience.
+Your Netflix Escape Pod 🚀
+Ever wanted to build your own streaming service, even just for fun? This project is your first step! It's a sleek, simplified Netflix Clone that brings the familiar UI magic right to your browser. Crafted with HTML, CSS, and Bootstrap 5, it's a quick demo of modern web design in action.
 
 ## ✨ Features:
 
