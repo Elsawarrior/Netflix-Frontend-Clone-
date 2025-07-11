@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #141414;
+            /* Dark background for Netflix feel */
+            color: #fff;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #e50914 !important;
+            font-size: 1.8rem;
+        }
+        
+        .nav-link.active {
+            color: #fff !important;
+            font-weight: 600;
+        }
+        
+        .nav-link {
+            color: #ccc !important;
+        }
+        
+        .nav-link:hover {
+            color: #fff !important;
+        }
+        
+        .hero {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.wallpapersafari.com/24/74/zgeTuV.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .hero .btn-danger {
+            background-color: #e50914;
+            border-color: #e50914;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .hero .btn-danger:hover {
+            background-color: #f40612;
+            border-color: #f40612;
+        }
+        
+        .carousel-inner img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .card {
+            transition: transform 0.2s ease-in-out;
+            background-color: #222;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-img-top {
+            height: 250px;
+            /* Uniform height for card images */
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        
+        .card-body {
+            padding: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .card-text {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .btn-primary {
+            background-color: #e50914;
+            border-color: #e50914;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background-color: #f40612;
+            border-color: #f40612;
+        }
+        
+        .footer {
+            background-color: #0a0a0a;
+            color: #737373;
+            padding: 40px 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        
+        .footer h5 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer ul li a {
+            color: #737373;
+            text-decoration: none;
+        }
+        
+        .footer ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer .fa {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .cta-section {
+            background-color: #222;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .cta-section .btn {
+            background-color: #e50914;
+            border-color: #e50914;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .cta-section .btn:hover {
+            background-color: #f40612;
+            border-color: #f40612;
+        }
+        /* Login Modal Specific Styles */
+        
+        .login-modal-content {
+            background-color: rgba(0, 0, 0, 0.85);
+            /* Slightly more opaque for the modal */
+            border-radius: 8px;
+            color: #fff;
+        }
+        
+        .login-modal-header {
+            border-bottom: none;
+        }
+        
+        .login-modal-title {
+            font-weight: 700;
+        }
+        
+        .login-form-control {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .login-form-control::placeholder {
+            color: #ccc;
+        }
+        
+        .login-form-control:focus {
+            background-color: #444;
+            color: #fff;
+            border-color: #007bff;
+            box-shadow: none;
+        }
+        
+        .btn-login-modal {
+            background-color: #e50914;
+            border-color: #e50914;
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            width: 100%;
+            /* Make button full width in modal */
+        }
+        
+        .btn-login-modal:hover {
+            background-color: #f40612;
+            border-color: #f40612;
+        }
+        
+        .login-modal-body .form-check-label a {
+            color: #ccc;
+            text-decoration: none;
+        }
+        
+        .login-modal-body .form-check-label a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-signup-link {
+            color: #737373;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .login-signup-link a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-recaptcha-text {
+            font-size: 13px;
+            color: #8c8c8c;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .login-recaptcha-text a {
+            color: #0071eb;
+            text-decoration: none;
+        }
+        
+        .login-recaptcha-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">NETFLIX</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="moviesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movies</a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="moviesDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Comedy Movies');">Comedy</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Action Movies');">Action</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Drama Movies');">Drama</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Sci-Fi Movies');">Sci-Fi</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="tvShowsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">TV Shows</a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="tvShowsDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Series');">Series</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Documentaries');">Documentaries</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Kids Shows');">Kids Shows</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="recentlyAddedDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Recently Added</a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="recentlyAddedDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Latest Movies');">Latest Movies</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="alert('Navigating to Latest TV Shows');">Latest TV Shows</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2 bg-dark text-white border-secondary" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                    <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+
+        <div class="container">
+            <img src="https://cdn.wallpapersafari.com/24/74/zgeTuV.jpg" class="card-img-top" alt="...">
+            <h1 class="display-3">See what's next.</h1>
+            <p class="lead">Watch anywhere. Cancel anytime.</p>
+            <a href="#" class="btn btn-lg btn-danger">Join Free for a Month</a>
+
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Trending Now</h2>
+        <div id="trendingCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://image.tmdb.org/t/p/original/rMvTnqNhlfN4s15zP6C2b0Gk8t3.jpg" class="d-block w-100" alt="Trending Movie 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://image.tmdb.org/t/p/original/jXgD0qW12v4I7YwY3K6N6K5bN9N.jpg" class="d-block w-100" alt="Trending Movie 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://image.tmdb.org/t/p/original/hW539d0Nmmh2lJb9fFz10bWd5eG.jpg" class="d-block w-100" alt="Trending Movie 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#trendingCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#trendingCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">New Releases</h2>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.vKaiZ0BnqWFdNLV3bNZh5AAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="New Release 1">
+                    <div class="card-body">
+                        <h5 class="card-title">The Fall Guy</h5>
+                        <p class="card-text">A stuntman who left the business to focus on his mental and physical health is drafted back into service...</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.h9bnbMHF4erFOfVCe_bmvgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="New Release 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Dune: Part Two</h5>
+                        <p class="card-text">Paul Atreides unites with Chani and the Fremen while seeking revenge against those who destroyed his family.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://bleedingcool.com/wp-content/uploads/2024/03/godzilla-x-kong-feature-image-2-2000x1125.jpg" class="card-img-top" alt="New Release 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Godzilla x Kong</h5>
+                        <p class="card-text">Godzilla and Kong must unite to face a colossal undiscovered threat hidden deep within the planet...</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://4kwallpapers.com/images/wallpapers/kung-fu-panda-4-3840x2160-15545.jpg" class="card-img-top" alt="New Release 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Kung Fu Panda 4</h5>
+                        <p class="card-text">Po is tapped to become the Spiritual Leader of the Valley of Peace, but first, he needs to find and train a new Dragon Warrior.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Popular on Netflix</h2>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.8aJaHrUWW596oUj4LNiNEgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Popular 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Stranger Things</h5>
+                        <p class="card-text">When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces...</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://www.heavenofhorror.com/wp-content/uploads/2022/11/wednesday-netflix-review.jpg" class="card-img-top" alt="Popular 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Wednesday</h5>
+                        <p class="card-text">Wednesday Addams attempts to master her emerging psychic ability, thwart a monstrous killing spree...</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.qoJpZhKgrmAUsEE7oAIOZgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Popular 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Squid Game</h5>
+                        <p class="card-text">Hundreds of cash-strapped players accept a strange invitation to compete in children's games...</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://www.themoviedb.org/t/p/original/pSKVkbpXcreU0YbhOA3cbkoX9Y6.jpg" class="card-img-top" alt="Popular 4">
+                    <div class="card-body">
+                        <h5 class="card-title">The Crown</h5>
+                        <p class="card-text">Follows the political rivalries and romance of Queen Elizabeth II's reign and the events that shaped the second half of the 20th century.</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchNowModal">
+                            Watch Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section mt-5">
+        <div class="container">
+            <h2>There's even more to watch.</h2>
+            <p>Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.</p>
+            <a href="#" class="btn btn-lg btn-danger">Browse Now</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="watchNowModal" tabindex="-1" aria-labelledby="watchNowModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="watchNowModalLabel">Watch Trailer</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="mt-3">This is a placeholder for the actual movie/show trailer. For demonstration purposes, a Rick Astley video is shown.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content login-modal-content">
+                <div class="modal-header login-modal-header">
+                    <h5 class="modal-title login-modal-title" id="loginModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control login-form-control" id="modalEmail" placeholder="Email or phone number" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control login-form-control" id="modalPassword" placeholder="Password" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-login-modal">Sign In</button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="modalRememberMe">
+                                <label class="form-check-label" for="modalRememberMe">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="#" class="text-white-50">Need help?</a>
+                        </div>
+                    </form>
+                    <div class="login-signup-link">
+                        New to Netflix? <a href="#">Sign up now</a>.
+                    </div>
+                    <p class="login-recaptcha-text">
+                        This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="#">Learn more.</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Netflix</h5>
+                    <p>Watch anywhere. Cancel anytime.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Help Center</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // These functions are no longer needed for direct page navigation as dropdowns are just links.
+        // They were causing issues with the dropdowns closing immediately.
+        // The dropdowns now just display an alert for demonstration purposes.
+        function showMoviePage() {
+            // This function is now empty as the dropdown handles itself
+        }
+
+        function showTvShowPage() {
+            // This function is now empty as the dropdown handles itself
+        }
+
+        function showRecentlyAddedPage() {
+            // This function is now empty as the dropdown handles itself
+        }
+    </script>
+</body>
+
+</html>
